@@ -117,8 +117,8 @@
 >
 
 <quoteItemModel ""
-  entityDisplayName: "报价单项"
-  entityDisplayNamePlural: "报价单项"
+  entityDisplayName: "报价单项目"
+  entityDisplayNamePlural: "报价单项目"
 >
 
 <quotePersonModel ""
@@ -178,7 +178,7 @@
   docAdjustedPriceText: "调整价"
   unitOfMeasureText: "计量单位"
   unitsOfMeasureTitle: "计量单位"
-  titleText: "报价单项"
+  titleText: "报价单项目"
   warehouseText: "仓库"
   docTotalAmountText: "合计金额"
   lineText: "行"
@@ -257,6 +257,8 @@
   erpStatusDateText: "ERP 状态日期"
   refreshPricingText: "刷新定价"
   pricingUnavailableText: "该报价单当前已结，定价不可用。"
+  relatedWorkflowInstancesText: "工作流实例"
+  relatedWorkflowInstancesTitleText: "报价单工作流实例"
 
 >
 
@@ -358,7 +360,7 @@
   newInvoicesText: "新发票"
   newReceivablesText: "新应收帐款"
   titleText: "新事务"
-  categoryText: "选择今天之前的天数"
+  categoryText: "选择距今天数"
   quotesTotalingText: "报价单总数: ${0}"
   ordersTotalingText: "订单总数: ${0}"
   shipmentsTotalingText: "发货总数: ${0}"
@@ -368,7 +370,7 @@
   deletedText: "已删除"
   replacedText: "已替换"
   canceledText: "已取消"
-  unapprovedText: "未核准"
+  unapprovedText: "未批准"
 >
 
 <openDashboardWidget ""
@@ -392,11 +394,11 @@
   adminHoldText: "管理流程暂停"
   holdText: "保留"
   orderedText: "已订购"
-  partiallyShippedText: "已部分发货"
+  partiallyShippedText: "部分已发货"
   pendingText: "未决"
   newText: "新建"
   openText: "未结"
-  approvedText: "已核准"
+  approvedText: "已批准"
   awardedText: "奖励"
 >
 
@@ -409,7 +411,7 @@
   yoyProfitText: "利润同比增长率"
   yoyMarginText: "利润率同比增长率"
   titleText: "财务快照"
-  categoryText: "选择今天之前的天数"
+  categoryText: "选择距今天数"
 >
 
 <erpAccountPersonsList ""
@@ -514,6 +516,8 @@
   shipToText: "收货方"
   salesPersonsText: "销售人员"
   entityText: "发票"
+  relatedWorkflowInstancesText: "工作流实例"
+  relatedWorkflowInstancesTitleText: "发票工作流实例"
 >
 
 <erpInvoicesList ""
@@ -709,6 +713,7 @@
   checkOrderItemPriceText: "正在检查订单项目定价"
   checkQuoteItemPriceText: "正在检查报价单项目定价"
   checkQuoteItemAvailText: "正在检查订单项目可用性"
+  noPricingText: "没有返回该行的定价。"
 >
 
 <productsList ""
@@ -742,7 +747,7 @@
   detailsText: "明细"
   moreDetailsText: "更多明细"
   relatedItemsText: "相关项"
-  entityText: "报价单项"
+  entityText: "报价单项目"
   confirmDeleteText: "确定要删除当前行项目吗?"
   removeQuoteLineText: "移除行项目"
   locationText: "位置"
@@ -862,7 +867,9 @@
   currencyCodeText: "货币代码"
   subTotalText: "小计"
   grandTotalText: "总计"
+  myGrandTotalText: "总计(我的汇率)"
   baseSubTotalText: "本币小计"
+  mySubTotalText: "小计(我的汇率)"
   baseGrandTotalText: "本币总计"
   billToText: "帐单接收方"
   billToAddressText: "帐单接收方地址"
@@ -901,6 +908,8 @@
   erpStatusDateText: "ERP 状态日期"
   refreshPricingText: "刷新定价"
   pricingUnavailableText: "该销售订单当前已结，定价不可用。"
+  relatedWorkflowInstancesText: "工作流实例"
+  relatedWorkflowInstancesTitleText: "销售订单工作流实例"
 >
 
 <salesOrdersList ""
@@ -1095,6 +1104,8 @@
   relatedERPItemsText: "相关项(ERP)"
   quotesText: "报价单"
   ordersText: "销售订单"
+  opportunityRefreshPricingText: "刷新定价"
+  warehouseText: "仓库"
 >
 
 <helpModule ""

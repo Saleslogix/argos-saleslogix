@@ -1,5 +1,5 @@
 <proxAppModule ""
-  viewAccountsNearbyText: "Firmen in der Nähe anzeigen"
+  viewAccountsNearbyText: "Firmen in der Nähe"
   addressNotGeocodedErrorText: "Die Adresse ist nicht geocodiert. Suchen nach Firmen in der Nähe nicht möglich."
   accountsNearText: "Firmen in der Nähe von ${0}"
   helpTitleText: "Contour-Hilfe"

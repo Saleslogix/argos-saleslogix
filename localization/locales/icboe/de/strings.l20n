@@ -47,8 +47,8 @@
 >
 
 <erpContactAssociationModel ""
-  entityDisplayName: "Kontaktbeziehung"
-  entityDisplayNamePlural: "Kontaktbeziehungen"
+  entityDisplayName: "Kontaktverknüpfung"
+  entityDisplayNamePlural: "Kontaktverknüpfungen"
 >
 
 <erpInvoiceModel ""
@@ -147,13 +147,13 @@
 >
 
 <unitOfMeasureModel ""
-  entityDisplayName: "Maßeinheit"
-  entityDisplayNamePlural : "Maßeinheiten"
+  entityDisplayName: "Mengeneinheit"
+  entityDisplayNamePlural : "Mengeneinheiten"
 >
 
 <carrierModel ""
-  entityDisplayName: "Versanddienst"
-  entityDisplayNamePlural: "Versanddienste"
+  entityDisplayName: "Spediteur"
+  entityDisplayNamePlural: "Spediteure"
 >
 
 <syncResultModel ""
@@ -176,8 +176,8 @@
   baseExtendedPriceText: "Gesamtpreis (Basis)"
   docExtendedPriceText: "Gesamtpreis"
   docAdjustedPriceText: "angepasster Preis"
-  unitOfMeasureText: "Maßeinheit"
-  unitsOfMeasureTitle: "Maßeinheiten"
+  unitOfMeasureText: "Mengeneinheit"
+  unitsOfMeasureTitle: "Mengeneinheiten"
   titleText: "Angebotsartikel"
   warehouseText: "Lager"
   docTotalAmountText: "Summenbetrag"
@@ -193,8 +193,8 @@
   baseExtendedPriceText: "Gesamtpreis (Basis)"
   docExtendedPriceText: "Gesamtpreis"
   docAdjustedPriceText: "angepasster Preis"
-  unitOfMeasureText: "Maßeinheit"
-  unitsOfMeasureTitle: "Maßeinheiten"
+  unitOfMeasureText: "Mengeneinheit"
+  unitsOfMeasureTitle: "Mengeneinheiten"
   titleText: "Verkaufsauftragsartikel"
   warehouseText: "Lager"
   docTotalAmountText: "Summenbetrag"
@@ -221,7 +221,7 @@
   billToAddressText: "Adresse Rechnungsempfänger"
   shipToText: "Lieferungsempfänger"
   shipToAddressText: "Adresse Lieferungsempfänger"
-  payFromText: "Zahlungsinformationen"
+  payFromText: "Zahler"
   salesOrderText: "Verkaufsauftrag"
   quoteLinesText: "Angebotspositionen"
   attachmentsText: "Anlagen"
@@ -251,12 +251,14 @@
   locationText: "Standort"
   accountingEntityRequiredText: "Es können keine Produkte zum Eintrag hinzugefügt werden, da das Buchhaltungssystem nicht definiert wurde. Möchten Sie zur Bearbeitungsansicht navigieren, um ein Buchhaltungssystem hinzuzufügen?"
   requestedByText: "angefordert von"
-  carrierText: "Versanddienst"
+  carrierText: "Spediteur"
   expectedDeliveryDateText: "Voraussichtliches Lieferdatum"
   erpStatusText: "ERP-Status"
   erpStatusDateText: "ERP-Statusdatum"
   refreshPricingText: "Preisfestsetzung aktualisieren"
   pricingUnavailableText: "Dieses Angebot ist abgeschlossen und eine Preisfestsetzung ist nicht verfügbar."
+  relatedWorkflowInstancesText: "Workflowinstanzen"
+  relatedWorkflowInstancesTitleText: "Angebots-Workflowinstanzen"
 
 >
 
@@ -273,7 +275,7 @@
   grandTotalText: "Gesamtsumme"
   billToText: "Rechnungsempfänger"
   shipToText: "Lieferungsempfänger"
-  payFromText: "Zahlungsinformationen"
+  payFromText: "Zahler"
   startDateText: "Startdatum"
   endDateText: "Enddatum"
   documentDateText: "Dokumentdatum"
@@ -297,7 +299,7 @@
   warehouseText: "Lager"
   warehouseLocationText: "Lagerstandorte"
   locationText: "Standort"
-  carrierText: "Versanddienst"
+  carrierText: "Spediteur"
   locationsTitleText: "Standorte"
   expectedDeliveryDateText: "Voraussichtliches Lieferdatum"
 >
@@ -315,7 +317,7 @@
   grandTotalText: "Gesamtsumme"
   billToText: "Rechnungsempfänger"
   shipToText: "Lieferungsempfänger"
-  payFromText: "Zahlungsinformationen"
+  payFromText: "Zahler"
   dueDateText: "Fälligkeitsdatum"
   commentsText: "Kommentare"
   productsText: "Produkte"
@@ -339,7 +341,7 @@
   warehouseLocationText: "Lagerstandort"
   locationText: "Standort"
   locationsTitleText: "Standorte"
-  carrierText: "Versanddienst"
+  carrierText: "Spediteur"
 >
 
 <activityDashboardWidget ""
@@ -368,7 +370,7 @@
   deletedText: "Gelöscht"
   replacedText: "Ersetzt"
   canceledText: "Abgebrochen"
-  unapprovedText: "Nicht genehmigt"
+  unapprovedText: "Nicht mehr genehmigt"
 >
 
 <openDashboardWidget ""
@@ -448,7 +450,7 @@
 >
 
 <erpContactAssociationsList ""
-  titleText: "Kontaktbeziehungen"
+  titleText: "Kontaktverknüpfungen"
 >
 
 <erpInvoiceItemsDetail ""
@@ -464,8 +466,8 @@
   requestedDeliveryDateText: "gewünschtes Lieferdatum"
   unitPriceText: "Preis pro Einheit"
   salesOrderNumberText: "Verkaufsauftragsnummer"
-  unitPricePerQuanityText: "Anzahl Einheiten für Grundmengenpreis"
-  unitPricePerQuanityUOMText: "ME für Grundmengenpreis"
+  unitPricePerQuanityText: "Anzahl Einheiten für Preisgrundmenge"
+  unitPricePerQuanityUOMText: "ME für Anzahl Einheiten für Preisgrundmenge"
   salesOrderLineNumberText: "Verkaufsauftragspositionsnummer"
   extendedCostText: "Gesamtkosten"
   moreDetailsText: "Weitere Details"
@@ -514,6 +516,8 @@
   shipToText: "Lieferungsempfänger"
   salesPersonsText: "Verkäufer"
   entityText: "Rechnung"
+  relatedWorkflowInstancesText: "Workflowinstanzen"
+  relatedWorkflowInstancesTitleText: "Rechnungs-Workflowinstanzen"
 >
 
 <erpInvoicesList ""
@@ -575,7 +579,7 @@
   billToAddressText: "Adresse Rechnungsempfänger"
   shipToText: "Lieferungsempfänger"
   shipToAddressText: "Adresse Lieferungsempfänger"
-  payFromText: "Zahlungsinformationen"
+  payFromText: "Zahler"
   relatedItemsText: "Verknüpfte Elemente"
   receivableItemsText: "Forderungspositionen"
   entityText: "Forderung"
@@ -612,7 +616,7 @@
   shippedQuantityText: "gelieferte Menge"
   orderedQuantityText: "bestellte Menge"
   backOrderedQuantityText: "Menge im Lieferrückstand"
-  unitOfMeasureText: "Maßeinheit"
+  unitOfMeasureText: "Mengeneinheit"
   erpUpcIdText: "UPC-ID ERP"
   entityText: "Lieferartikel"
 >
@@ -637,7 +641,7 @@
   actualShipDateText: "Tatsächliches Versanddatum"
   actualDeliveryDateText: "tatsächliches Lieferdatum"
   documentDateText: "Dokumentdatum"
-  carrierText: "Versanddienst"
+  carrierText: "Spediteur"
   erpStatusText: "Status"
   erpStatusDateText: "Statusdatum"
   warehouseLocationText: "Lagerstandort"
@@ -678,7 +682,7 @@
   faxText: "Fax"
   emailText: "E-Mail"
   paymentTermText: "Zahlungsbedingungen"
-  carrierText: "Versanddienst"
+  carrierText: "Spediteur"
   accountsText: "Firmen"
   openQuotesText: "Offene Angebote"
   salesOrdersText: "Verkaufsaufträge"
@@ -686,7 +690,7 @@
   shipmentsText: "Lieferungen"
   receivablesText: "Forderungen"
   returnsText: "Retouren"
-  contactAssociationText: "Kontaktbeziehungen"
+  contactAssociationText: "Kontaktverknüpfungen"
   shipToText: "Lieferungsempfänger"
   billToText: "Rechnungsempfänger"
   salesPersonText: "Verkäufer"
@@ -709,6 +713,7 @@
   checkOrderItemPriceText: "Preisfestsetzung des Auftragsartikels wird geprüft"
   checkQuoteItemPriceText: "Preisfestsetzung des Angebotsartikels wird geprüft"
   checkQuoteItemAvailText: "Verfügbarkeit des Auftragsartikels wird geprüft"
+  noPricingText: "Für diese Position wurden keine Preisdaten zurückgegeben."
 >
 
 <productsList ""
@@ -737,7 +742,7 @@
   dropShipText: "Direktlieferung"
   fixedPriceText: "Festpreis"
   rushRequestText: "eilige Anforderung"
-  unitOfMeasureText: "Maßeinheit"
+  unitOfMeasureText: "Mengeneinheit"
   warehouseText: "Lager"
   detailsText: "Details"
   moreDetailsText: "Weitere Details"
@@ -811,7 +816,7 @@
   partialShipAllowedText: "Teillieferung zulässig"
   fixedPriceItemText: "Festpreisartikel"
   rushRequestText: "eilige Anforderung"
-  unitOfMeasureText: "Maßeinheit"
+  unitOfMeasureText: "Mengeneinheit"
   warehouseText: "Lager"
   substituteItemText: "Ersatzartikel"
   detailsText: "Details"
@@ -862,13 +867,15 @@
   currencyCodeText: "Währ.-Code"
   subTotalText: "Zwischensumme"
   grandTotalText: "Gesamtsumme"
+  myGrandTotalText: "Gesamtsumme (eigener Kurs)"
   baseSubTotalText: "Basis-Zwischensumme"
+  mySubTotalText: "Zwischensumme (eigener Kurs)"
   baseGrandTotalText: "Basis-Gesamtsumme"
   billToText: "Rechnungsempfänger"
   billToAddressText: "Adresse Rechnungsempfänger"
   shipToText: "Lieferungsempfänger"
   shipToAddressText: "Adresse Lieferungsempfänger"
-  payFromText: "Zahlungsinformationen"
+  payFromText: "Zahler"
   paymentMethodText: "Zahlungsmethode"
   paymentTermText: "Zahlungsbedingungen"
   backOrderedText: "im Lieferrückstand"
@@ -895,12 +902,14 @@
   locationText: "Standort"
   accountingEntityRequiredText: "Es können keine Produkte zum Eintrag hinzugefügt werden, da das Buchhaltungssystem nicht definiert wurde. Möchten Sie zur Bearbeitungsansicht navigieren, um ein Buchhaltungssystem hinzuzufügen?"
   requestedByText: "angefordert von"
-  carrierText: "Versanddienst"
+  carrierText: "Spediteur"
   totalAmountText: "Summenbetrag"
   erpStatusText: "ERP-Status"
   erpStatusDateText: "ERP-Statusdatum"
   refreshPricingText: "Preisfestsetzung aktualisieren"
   pricingUnavailableText: "Dieser Verkaufsauftrag ist abgeschlossen und eine Preisfestsetzung ist nicht verfügbar."
+  relatedWorkflowInstancesText: "Workflowinstanzen"
+  relatedWorkflowInstancesTitleText: "Verkaufsauftrags-Workflowinstanzen"
 >
 
 <salesOrdersList ""
@@ -949,7 +958,7 @@
   shipToText: "Lieferungsempfänger"
   accountsText: "Firmen"
   salesOrdersText: "Verkaufsaufträge"
-  contactAssociationsText: "Kontaktbeziehungen"
+  contactAssociationsText: "Kontaktverknüpfungen"
   receivablesText: "Forderungen"
   invoicesText: "Rechnungen"
   returnsText: "Retouren"
@@ -1002,7 +1011,7 @@
   billToText: "Rechnungsempfänger"
   accountsText: "Firmen"
   salesOrdersText: "Verkaufsaufträge"
-  contactAssociationsText: "Kontaktbeziehungen"
+  contactAssociationsText: "Kontaktverknüpfungen"
   receivablesText: "Forderungen"
   invoicesText: "Rechnungen"
   returnsText: "Retouren"
@@ -1052,7 +1061,7 @@
   erpBillToText: "Rechnungsempfänger"
   erpShipToText: "Lieferungsempfänger"
   erpSalesPersonText: "Verkäufer"
-  erpContactAssociationText: "Kontaktbeziehungen"
+  erpContactAssociationText: "Kontaktverknüpfungen"
   quotesText: "Angebote"
   ordersText: "Verkaufsaufträge"
   relatedERPItemsText: "Verknüpfte Elemente (ERP)"
@@ -1069,7 +1078,7 @@
 <contactModule ""
   erpStatusText: "ERP-Status"
   erpContactIdText: "ERP-Kontakt-ID"
-  erpAccountAssociationsText: "Firmenbeziehungen"
+  erpAccountAssociationsText: "Firmenverknüpfungen"
   relatedERPItemsText: "Verknüpfte Elemente (ERP)"
   addQuoteText: "Angebot hinzufügen"
   addOrderText: "Auftrag hinzufügen"
@@ -1095,6 +1104,8 @@
   relatedERPItemsText: "Verknüpfte Elemente (ERP)"
   quotesText: "Angebote"
   ordersText: "Verkaufsaufträge"
+  opportunityRefreshPricingText: "Preisfestsetzung aktualisieren"
+  warehouseText: "Lager"
 >
 
 <helpModule ""
@@ -1102,7 +1113,7 @@
 >
 
 <unitOfMeasureList ""
-  titleText: "Maßeinheiten"
+  titleText: "Mengeneinheiten"
 >
 
 <syncResultsList ""
@@ -1117,5 +1128,5 @@
 >
 
 <carriersList ""
-  titleText: "Versanddienste"
+  titleText: "Spediteure"
 >

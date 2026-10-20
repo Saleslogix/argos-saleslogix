@@ -46,7 +46,7 @@
   relatedAddressesText: "Adresses"
   relatedAttachmentText: "Pièces jointes"
   relatedAttachmentTitleText: "Pièces jointes du compte"
-  statusText: "Etat"
+  statusText: "Statut"
   subTypeText: "Sous-type"
   titleText: "Compte"
   typeText: "Type"
@@ -56,6 +56,10 @@
   moreDetailsText: "Plus de détails"
   calledText: "Appelé ${0}"
   entityText: "Compte"
+  addTicketText: "Ajouter un ticket"
+  customerJourney360Text: "Parcours 360"
+  relatedWorkflowInstancesText: "Instances de workflow"
+  relatedWorkflowInstancesTitleText: "Instances de workflow de compte"
 >
 
 <accountEdit ""
@@ -74,7 +78,7 @@
   industryTitleText: "Secteur"
   ownerText: "Propriétaire"
   phoneText: "Téléphone"
-  statusText: "Etat"
+  statusText: "Statut"
   subTypeText: "Sous-type"
   titleText: "Compte"
   typeText: "Type"
@@ -113,10 +117,14 @@
   durationText: "Durée"
   durationTitleText: "Durée"
   durationInvalidText: "Le champ '${2}' doit contenir une valeur."
-  carryOverNotesText: "Reporter les notes"
+  carryOverNotesText: "Transmettre les notes"
   followUpText: "Suivi"
   followUpTitleText: "Type de suivi"
   leaderText: "Responsable"
+  isLeadText: "Pour le lead"
+  yesText: "OUI"
+  noText: "NON"
+  phoneText: "Téléphone"
   longNotesText: "Notes"
   longNotesTitleText: "Notes"
   otherInfoText: "Autres infos"
@@ -129,11 +137,14 @@
   startingText: "Date de début"
   timelessText: "Heure indéfinie"
   noneText: "Aucun(e)"
+  fiveMinutesText: "5 minutes"
+  tenMinutesText: "10 minutes"
   quarterHourText: "15 minutes"
   halfHourText: "30 minutes"
   hourText: "1 heure"
   hourAndHalfText: "1,5 heure"
   twoHoursText: "2 heures"
+  fourHoursText: "4 heures"
   nonePropText: "Aucun(e)"
   phoneCallText: "Appel téléphonique"
   meetingText: "Rendez-vous"
@@ -171,6 +182,8 @@
   confirmEditRecurrenceText: "Modifier toutes les occurrences ? Annuler pour modifier une seule occurrence."
   relatedAttachmentText: "Pièces jointes"
   relatedAttachmentTitleText: "Pièces jointes de l'activité"
+  relatedAttendeeText: "Participants"
+  relatedAttendeeTitleText: "Participants à l'activité"
   relatedItemsText: "Eléments associés"
   phoneText: "Téléphone"
   moreDetailsText: "Plus de détails"
@@ -221,19 +234,96 @@
   phoneText: "Téléphone"
   noneText: "Aucun(e)"
   fiveMinText: "5 minutes"
+  tenMinutesText: "10 minutes"
   quarterHourText: "15 minutes"
   halfHourText: "30 minutes"
   hourText: "1 heure"
   hourAndHalfText: "1,5 heure"
   twoHoursText: "2 heures"
+  fourHoursText: "4 heures"
   dayText: "1 jour"
   updateUserActErrorText: "Une erreur s'est produite lors de la mise à jour des activités utilisateur."
+>
+
+<activityAttendeeList ""
+  titleText: "Participants à l'activité"
+  callPhoneActionText: "Téléphone"
+  deleteText: "Supprimer"
+  confirmDeleteText: "Voulez-vous vraiment supprimer ce participant ?"
+>
+
+<activityAssociationList ""
+  titleText: "Associations d'une activité"
+  primaryText: "Enregistrement principal ?"
+  deleteText: "Supprimer"
+  confirmDeleteText: "Voulez-vous vraiment supprimer cette association ?"
+>
+
+<historyAssociationList ""
+  titleText: "Associations d'historique"
+  primaryText: "Enregistrement principal ?"
+>
+
+<historyAttendeeList ""
+  titleText: "Participants à l'historique"
+  callPhoneActionText: "Téléphone"
+>
+
+<activityAttendeeDetail ""
+  titleText: "Participant à l'activité"
+  entityText: "Participant à l'activité"
+  nameText: "Nom"
+  accountText: "Compte"
+  typeText: "Type"
+  primaryText: "Enregistrement principal"
+  roleText: "Rôle"
+  phoneText: "Téléphone"
+  emailText: "E-mail"
+  timeZoneText: "Fuseau horaire"
+>
+
+<historyAttendeeDetail ""
+  titleText: "Participant à l'historique"
+  entityText: "Participant à l'historique"
+  nameText: "Nom"
+  accountText: "Compte"
+  typeText: "Type"
+  primaryText: "Enregistrement principal"
+  roleText: "Rôle"
+  phoneText: "Téléphone"
+  emailText: "E-mail"
+  timeZoneText: "Fuseau horaire"
+>
+
+<activityAttendeeEdit ""
+  titleText: "Participant à l'activité"
+  nameText: "Nom"
+  accountText: "Compte"
+  typeText: "Type"
+  primaryText: "Enregistrement principal"
+  roleText: "Rôle"
+  phoneText: "Téléphone"
+  emailText: "E-mail"
+  timeZoneText: "Fuseau horaire"
+  attendeeText: "Participant"
+>
+
+<activityAttendeeTypesList ""
+  titleText: "Ajouter un participant"
+  contactText: "Contact"
+  leadText: "Lead"
+  cancelText: "Annuler"
+  addText: "Ajouter"
 >
 
 <activityList ""
   titleText: "Activités"
   allDayText: "Heure indéfinie"
   completeActivityText: "Terminer"
+  completeRecurringPrompt: "Terminer cette occurrence ou la série entière ?"
+  completeOccurrenceText: "Terminer l'occurrence"
+  completeSeriesText: "Terminer la série"
+  cancelText: "Annuler"
   callText: "Appel"
   calledText: "Appelé ${0}"
   addAttachmentActionText: "Ajouter une pièce jointe"
@@ -242,6 +332,7 @@
   touchedText: "Modifié"
   importantText: "Important"
   recurringText: "Récurrent"
+  addUnscheduledText: "Nouvelle activité non planifiée"
 >
 
 <activityMyList ""
@@ -365,25 +456,26 @@
   attachmentNotSupportedText: "Il n'est pas possible de visualiser ce type de pièce jointe."
   downloadingText: "Téléchargement de la pièce jointe..."
   notSupportedText: "L'affichage des pièces jointes n'est pas possible avec votre périphérique."
+  openInNewTabText: "Ouvrir dans un nouvel onglet"
 >
 
 <calendarView ""
-  titleText: "Agenda"
+  titleText: "Calendrier"
   allDayText: "Toute la journée"
   eventText: "Evénement"
   eventHeaderText: "Evénements"
   countMoreText: "Voir plus"
   toggleCollapseText: "Développer/réduire"
-  withFromText: "Participant : ${contactName} de ${accountName}"
-  withText: "Participant(s) : ${object}"
-  unspecifiedText: "Non spécifié"
+  withText: "Participant : ${object}"
+  unspecifiedText: "Aucun"
   forText: "pour ${reason}"
   dayText: "Jour"
   weekText: "Semaine"
+  addUnscheduledText: "Nouvelle activité non planifiée"
 >
 
 <calendarDayView ""
-  titleText: "Agenda"
+  titleText: "Calendrier"
   todayText: "Aujourd'hui"
   dayText: "Jour"
   weekText: "Semaine"
@@ -396,7 +488,7 @@
 >
 
 <calendarMonthView ""
-  titleText: "Agenda"
+  titleText: "Calendrier"
   todayText: "Aujourd'hui"
   dayText: "Jour"
   weekText: "Semaine"
@@ -417,7 +509,7 @@
 >
 
 <calendarWeekView ""
-  titleText: "Agenda"
+  titleText: "Calendrier"
   todayText: "Aujourd'hui"
   dayText: "Jour"
   weekText: "Semaine"
@@ -468,6 +560,8 @@
   viewAddressText: "Voir l'adresse"
   moreDetailsText: "Plus de détails"
   entityText: "Contact"
+  relatedWorkflowInstancesText: "Instances de workflow"
+  relatedWorkflowInstancesTitleText: "Instances de workflow de contact"
 >
 
 <contactEdit ""
@@ -521,8 +615,9 @@
   entityText: "Journal d'erreurs"
   moreDetailsText: "Plus de détails"
   errorText: "Erreur"
-  emailSubjectText: "Erreur dans Infor CRM Mobile Client"
+  emailSubjectText: "Erreur reçue dans le client mobile Infor CRM SLX"
   copiedSuccessText: "Copié dans le presse-papier"
+  emailText: "E-mail"
 >
 
 <errorLogList ""
@@ -583,6 +678,7 @@
   ticketNumberText: "Ticket"
   moreDetailsText: "Plus de détails"
   relatedItemsText: "Eléments associés"
+  relatedAttendeeText: "Participants"
   relatedAttachmentText: "Pièces jointes"
   relatedAttachmentTitleText: "Pièces jointes de l'historique"
   modifiedText: "Modifié"
@@ -644,7 +740,7 @@
 <historyListOffline ""
   titleText: "Notes hors ligne"
   widgetTitle: "Note hors ligne"
-  saveToCRMText: "Enregistrer dans Infor CRM"
+  saveToCRMText: "Enregistrer dans Infor CRM SLX"
   deleteNoteText: "Supprimer"
 >
 
@@ -690,6 +786,58 @@
   calledText: "Appelé ${0}"
   emailedText: "E-mail envoyé à ${0}"
   entityText: "Lead"
+  relatedWorkflowInstancesText: "Instances de workflow"
+  relatedWorkflowInstancesTitleText: "Instances de workflow de lead"
+  ocrScanText: "Scanner la carte"
+  ocrUnavailableText: "La fonction de numérisation de carte n'est pas disponible sur cette plateforme."
+  ocrOpenFailedText: "Impossible d'ouvrir l'outil de numérisation des cartes. Réessayez."
+>
+
+<ocrCapture ""
+  titleText: "Scanner la carte"
+  instructionsText: "Prenez une photo ou choisissez une image de la carte à scanner."
+  browseText: "Ajouter une image"
+  chooserTitleText: "Ajouter une image"
+  chooserPromptText: "Prenez une photo avec l'appareil photo ou choisissez une image existante."
+  takePhotoText: "Prendre une photo"
+  chooseFileText: "Choisir un fichier"
+  capturePhotoText: "Capturer"
+  cameraErrorText: "Impossible d'accéder à l'appareil photo. Vérifiez les autorisations ou choisissez un fichier à la place."
+  cancelText: "Annuler"
+  submitText: "Traiter"
+  progressText: "Reconnaissance du texte..."
+  previewAltText: "Aperçu de l'image sélectionnée"
+  unsupportedFormatText: "Format d'image non pris en charge. les formats pris en charge sont PNG, JPEG, TIFF et BMP."
+  oversizeText: "L'image sélectionnée est trop volumineuse. La taille des images ne doit pas dépasser 10 Mo."
+  emptyImageText: "L'image est vide ou n'a pas pu être capturée. Sélectionnez une autre image."
+  invalidImageText: "Une image valide est requise avant la numérisation."
+  timeoutText: "Délai de reconnaissance du texte expiré. Réessayez."
+  recognitionErrorText: "Echec de la reconnaissance du texte. Réessayez."
+  unavailableText: "La reconnaissance de texte n'est pas disponible sur cette plateforme."
+  noTextText: "Aucun texte n'a été reconnu. Capturez ou chargez une autre image."
+>
+
+<ocrMapping ""
+  titleText: "Mapper le texte de la carte"
+  linesTitleText: "Texte reconnu"
+  fieldsTitleText: "Champs"
+  confidenceText: "Confiance"
+  assignText: "Affecter"
+  clearText: "Effacer"
+  splitText: "Fractionner"
+  lineInputLabelText: "Ligne de texte reconnu"
+  splitHintText: "Positionnez le curseur à l'emplacement où vous souhaitez fractionner la ligne, puis cliquez sur Fractionner (ou appuyez sur Entrée)."
+  undoText: "Annuler"
+  confirmText: "Confirmer"
+  recaptureText: "Capturer une autre image"
+  noTextText: "Aucun texte n'a été reconnu. Capturez ou chargez une autre image."
+  noLineSelectedText: "Sélectionnez une ligne reconnue avant de l'affecter à un champ."
+  maxLengthText: "Ce texte est trop long pour ce champ et n'a pas été affecté."
+  nothingToUndoText: "Aucune action de mappage n'est à annuler."
+  undoFailedText: "L'action Annuler n'a pas pu être terminée."
+  truncatedText: "Une ou plusieurs valeurs ont été raccourcies conformément à la longueur du champ."
+  configErrorText: "Configuration requise manquante pour l'écran de mappage des cartes : "
+  openFailedText: "Impossible d'ouvrir l'écran de modification. Vos valeurs mappées ont été conservées."
 >
 
 <leadEdit ""
@@ -767,7 +915,7 @@
   relatedAttachmentText: "Pièces jointes"
   relatedAttachmentTitleText: "Pièces jointes des opportunités"
   resellerText: "Revendeur"
-  statusText: "Etat"
+  statusText: "Statut"
   titleText: "Opportunité"
   typeText: "Type"
   scheduleActivityText: "Planifier l'activité"
@@ -779,6 +927,8 @@
   multiCurrencyDateText: "Date du taux"
   multiCurrencyLockedText: "Taux verrouillés"
   entityText: "Opportunité"
+  relatedWorkflowInstancesText: "Instances de workflow"
+  relatedWorkflowInstancesTitleText: "Instances de workflow d'opportunité"
 >
 
 <opportunityEdit ""
@@ -787,7 +937,7 @@
   estCloseText: "Clôture est."
   importSourceText: "Source du lead"
   detailsText: "Détails"
-  opportunityStatusTitleText: "Etat de l'opportunité"
+  opportunityStatusTitleText: "Statut de l'opportunité"
   opportunityText: "Opportunité"
   opportunityTypeTitleText: "Type d'opportunité"
   ownerText: "Propriétaire"
@@ -795,7 +945,7 @@
   probabilityText: "Prob. de réussite"
   probabilityTitleText: "Probabilité d'opportunité"
   resellerText: "Revendeur"
-  statusText: "Etat"
+  statusText: "Statut"
   titleText: "Opportunité"
   typeText: "Type"
   multiCurrencyText: "Multidevise"
@@ -819,19 +969,19 @@
   addActivityActionText: "Ajouter une activité"
   addAttachmentActionText: "Ajouter une pièce jointe"
   actualCloseText: "Clôturé "
-  estimatedCloseText: "Clôture estimée "
+  estimatedCloseText: "Fermeture estimée "
   quickEditActionText: "Edition rapide"
 >
 
 <opportunityQuickEdit ""
   estCloseText: "Clôture est."
   detailsText: "Détails"
-  opportunityStageTitleText: "Etape d'opportunité"
+  opportunityStageTitleText: "Phase de l'opportunité"
   opportunityText: "Opportunité"
   stageText: "Phase"
   statusOpenText: "Ouvert(e)"
-  statusClosedLostText: "Clôturée - Perdue"
-  statusClosedWonText: "Clôturée - Gagnée"
+  statusClosedLostText: "Fermée - Perdue"
+  statusClosedWonText: "Fermée - Gagnée"
   salesProcessText: "étape verrouillée par le processus de vente :"
   probabilityText: "Prob. de réussite"
   probabilityTitleText: "Probabilité d'opportunité"
@@ -847,7 +997,7 @@
   salesRoleText: "Rôle"
   strategyText: "Stratégie"
   personalBenefitsText: "Avantages perso"
-  standingText: "Position"
+  standingText: "Réputation"
   issuesText: "Problèmes"
   competitorNameText: "Préf. concurrent"
   removeContactTitleText: "Supprimer le contact"
@@ -866,8 +1016,8 @@
   personalBenefitsText: "Avantages perso"
   strategyText: "Stratégie"
   issuesText: "Problèmes"
-  standingText: "Position"
-  standingTitleText: "Position"
+  standingText: "Réputation"
+  standingTitleText: "Réputation"
   contactText: "Contact"
   competitorPrefText: "Préf. concurrent"
 >
@@ -878,6 +1028,7 @@
   activitiesText: "Activités"
   notesText: "Notes"
   scheduleText: "Planification"
+  cancelText: "Annuler"
 >
 
 <opportunityProductDetail ""
@@ -891,8 +1042,8 @@
   discountText: "Remise"
   quantityText: "Quantité"
   baseExtendedPriceText: "Base"
-  extendedPriceText: "Prix total"
-  extendedPriceSectionText: "Prix total"
+  extendedPriceText: "Prix global"
+  extendedPriceSectionText: "Prix global"
   adjustedPriceSectionText: "Prix ajusté"
   baseAdjustedPriceText: "base"
   adjustedPriceText: "Prix ajusté"
@@ -917,8 +1068,8 @@
   baseAdjustedPriceText: "base"
   quantityText: "Quantité"
   baseExtendedPriceText: "Base"
-  extendedPriceText: "Prix total"
-  extendedPriceSectionText: "Prix total"
+  extendedPriceText: "Prix global"
+  extendedPriceSectionText: "Prix global"
   adjustedPriceSectionText: "Prix ajusté"
 >
 
@@ -959,7 +1110,7 @@
   relatedItemsText: "Eléments associés"
   resolutionText: "Résolution"
   sourceText: "Source"
-  statusText: "Etat"
+  statusText: "Statut"
   subjectText: "Objet"
   ticketIdText: "Numéro de ticket"
   titleText: "Ticket"
@@ -969,6 +1120,8 @@
   relatedTicketActivitiesText: "Activités du ticket"
   loadingText: "Chargement en cours"
   entityText: "Ticket"
+  relatedWorkflowInstancesText: "Instances de workflow"
+  relatedWorkflowInstancesTitleText: "Instances de workflow de ticket"
 >
 
 <ticketEdit ""
@@ -992,13 +1145,13 @@
   resolutionTitleText: "Résolution"
   sourceText: "Source"
   sourceTitleText: "Source"
-  statusText: "Etat"
+  statusText: "Statut"
   subjectText: "Objet"
   ticketAreaTitleText: "Domaine du ticket"
   ticketCategoryTitleText: "Catégorie du ticket"
   ticketIdText: "Numéro de ticket"
   ticketIssueTitleText: "Problème du ticket"
-  ticketStatusTitleText: "Etat du ticket"
+  ticketStatusTitleText: "Statut du ticket"
   ticketUrgencyTitleText: "Urgence du ticket"
   titleText: "Ticket"
   urgencyText: "Priorité"
@@ -1099,7 +1252,7 @@
 >
 
 <groupListMixin ""
-  noDefaultGroupText: "Aucun groupe par défaut défini. Cliquez ici pour configurer des groupes."
+  noDefaultGroupText: "Aucun groupe par défaut défini. Tapez ici pour configurer des groupes."
   currentGroupNotFoundText: "Le groupe actuel n'a pas été trouvé."
   groupTemplateSummaryText: "Résumé"
   groupTemplateDetailText: "Détail"
@@ -1140,7 +1293,7 @@
   lastNameText: "Nom"
   mobileText: "Portable"
   nameText: "Nom"
-  statusText: "Etat"
+  statusText: "Statut"
   subTypeText: "Sous-type"
   titleText: "Ajouter un compte/contact"
   typeText: "Type"
@@ -1152,6 +1305,18 @@
 
 <areaCategoryIssueLookup ""
   titleText: "Comptes"
+>
+
+<areaCategoryIssue_AreaLookup ""
+  titleText: "Domaine"
+>
+
+<areaCategoryIssue_CategoryLookup ""
+  titleText: "Catégorie"
+>
+
+<areaCategoryIssue_IssueLookup ""
+  titleText: "Problèmes"
 >
 
 <configure ""
@@ -1166,7 +1331,7 @@
   titleText: "Aide"
   errorText: "Erreur"
   errorMessageText: "Impossible de charger le document d'aide."
-  sectionTitleText: "Aide Infor CRM"
+  sectionTitleText: "Aide Infor CRM SLX"
 >
 
 <home ""
@@ -1191,19 +1356,21 @@
   onlineText: "En ligne"
   offlineText: "Hors ligne"
   connectionText: "Connexion : ${connectionStatus}"
+  aboutText: "A propos de"
+  currentUserText: "Utilisateur actuel :"
 >
 
 <login ""
   logOnText: "Connexion"
   passText: "Mot de passe"
-  urlText: "Point de terminaison SData"
   rememberText: "Mémoriser"
   titleText: "Connexion"
   userText: "ID d'utilisateur"
+  passwordExpiredText: "Votre mot de passe a expiré. Utilisez le client Web pour le modifier."
   invalidUserText: "Le nom d'utilisateur ou mot de passe n'est pas valide."
   missingUserText: "La fiche utilisateur est introuvable."
   requestAbortedText: "La demande a été abandonnée."
-  logoText: "Infor CRM"
+  logoText: "Infor CRM SLX"
   logOnError: "Le serveur n'est pas disponible ou vous avez saisi des informations incorrectes pour la connexion au point de terminaison. Saisissez de nouvelles informations ou contactez votre administrateur."
 >
 
@@ -1237,12 +1404,26 @@
   credentialsClearedText: "Identifiants enregistrés effacés."
   titleText: "Paramètres"
   offlineOptionsText: "Options hors ligne"
+  speedSearchOptionsText: "Options SpeedSearch"
   use24HourClockText: "Utilisation du format horaire 24 heures"
   use12HourClockText: "Utilisation du format horaire 12 heures"
   confirm24HourClockMessage: "Le passage au format horaire 24 heures requiert un redémarrage de l'application. Continuer ?"
   confirm12HourClockMessage: "Le passage au format horaire 12 heures requiert un redémarrage de l'application. Continuer ?"
   confirmClearLocalStorageMessage: "L'effacement du stockage local requiert un redémarrage de l'application. Confirmer ?"
   languageSettingText: "Paramètres de langue"
+>
+
+<speedSearchOptions ""
+  titleText: "Options SpeedSearch"
+  searchMethodText: "Méthode de recherche"
+  searchTypeAndText: "Rechercher tous les mots (AND)"
+  searchTypeOrText: "Rechercher n'importe quel mot (OR)"
+  searchTypeExactPhraseText: "Rechercher l'expression exacte"
+  searchTypeBooleanText: "Booléen (AND, OR, NOT)"
+  searchTypeNaturalText: "Langage naturel"
+  rootText: "Racine"
+  thesaurusText: "Thésaurus"
+  soundsLikeText: "Similarité"
 >
 
 <speedSearchList ""
@@ -1280,7 +1461,9 @@
   pleaseWaitText: "Veuillez patienter."
   offlineText: "Votre connexion Internet ne fonctionne plus."
   onlineText: "Votre connexion fonctionne."
-  connectionToastTitleText: "Etat de la connexion"
+  fileCacheText: "L'application est maintenant prête pour une utilisation hors ligne."
+  fileCacheTitle: "Mise en cache hors ligne"
+  connectionToastTitleText: "Statut de la connexion"
   offlineOptionsText: "Options hors ligne"
   offlineInitDataText: "Initialisation des données hors ligne"
   offlineInitErrorText: "Une erreur s'est produite lors de l'initialisation hors ligne. Toutes les options hors ligne sont désactivées."
@@ -1299,6 +1482,12 @@
   integrationsText: "Intégrations"
   picklistsText: "Listes de sélection"
   retrievingPicklistsText: "Extraction des listes de sélection"
+>
+
+<activityAssociationModule ""
+  relatedAssociationText: "Associations"
+  relatedAssociationTitleText: "Associations d'une activité"
+  relatedHistoryAssociationTitleText: "Associations d'historique"
 >
 
 <defaultMetrics ""
@@ -1403,6 +1592,26 @@
   entityDisplayNamePlural : "Leads"
 >
 
+<activityAttendeeModel ""
+  entityDisplayName: "Participant à l'activité"
+  entityDisplayNamePlural : "Participants à l'activité"
+>
+
+<activityAssociationModel ""
+  entityDisplayName: "Association d'une activité"
+  entityDisplayNamePlural : "Associations d'une activité"
+>
+
+<historyAssociationModel ""
+  entityDisplayName: "Association de l'historique"
+  entityDisplayNamePlural : "Associations d'historique"
+>
+
+<historyAttendeeModel ""
+  entityDisplayName: "Participant à l'historique"
+  entityDisplayNamePlural : "Participants à l'historique"
+>
+
 <activityModel ""
   entityDisplayName: "Activité"
   entityDisplayNamePlural : "Activités"
@@ -1437,6 +1646,11 @@
 <historyModel ""
   entityDisplayName: "Historique"
   entityDisplayNamePlural : "Historique"
+>
+
+<historyAssociationModel ""
+  entityDisplayName: "Association de l'historique"
+  entityDisplayNamePlural : "Associations d'historique"
 >
 
 <offlineDetail ""
@@ -1538,19 +1752,19 @@
   alarmText: "#alarme"
   recurringText: "#récurrent"
   timelessText: "#heure-indéfinie"
-  todayText: "#aujourdhui"
+  todayText: "#aujourd'hui"
   thisWeekText: "#cette-semaine"
   yesterdayText: "#hier"
 >
 
 <activityMyListHashTags ""
   hashTagAlarmText: "#alarme"
-  hashTagUnconfirmedText: "#état-non-confirmé"
-  hashTagAcceptedText: "#état-accepté"
-  hashTagDeclinedText: "#état-refusé"
+  hashTagUnconfirmedText: "#statut-non-confirmé"
+  hashTagAcceptedText: "#statut-accepté"
+  hashTagDeclinedText: "#statut-refusé"
   hashTagRecurringText: "#récurrent"
   hashTagTimelessText: "#heure-indéfinie"
-  hashTagTodayText: "#aujourdhui"
+  hashTagTodayText: "#aujourd'hui"
   hashTagThisWeekText: "#cette-semaine"
   hashTagYesterdayText: "#hier"
 >
@@ -1558,6 +1772,43 @@
 <attachmentListHashTags ""
   hashTagUrlText: "#url"
   hashTagBinaryText: "#binaire"
+>
+
+<accountListHashTags ""
+  activeHash: "#Actif"
+  inactiveHash: "#Inactif"
+  myAccountsHash: "#MesComptes"
+  newThisWeekHash: "#NouveauCetteSemaine"
+>
+
+<contactListHashTags ""
+  myContactsHash: "#MesContacts"
+  withEmailHash: "#AdresseE-mail"
+  withPhoneHash: "#Téléphone"
+  newThisWeekHash: "#NouveauCetteSemaine"
+>
+
+<opportunityListHashTags ""
+  openHash: "#Ouvert"
+  closedWonHash: "#FerméGagné"
+  closedLostHash: "#FerméPerdu"
+  myOpportunitiesHash: "#MesOpportunités"
+  closingSoonHash: "#FermetureProchaine"
+>
+
+<leadListHashTags ""
+  myLeadsHash: "#MesLeads"
+  newThisWeekHash: "#NouveauCetteSemaine"
+  withEmailHash: "#AdresseE-mail"
+  withPhoneHash: "#Téléphone"
+>
+
+<ticketListHashTags ""
+  openHash: "#Ouvert"
+  urgentHash: "#Urgent"
+  myTicketsHash: "#MesTickets"
+  newThisWeekHash: "#NouveauCetteSemaine"
+  neededSoonHash: "#BientôtNécessaire"
 >
 
 <historyListHashTags ""
@@ -1581,4 +1832,176 @@
 
 <chartMixin ""
   loadingText: "Chargement en cours"
+>
+
+<customerJourney360Widget ""
+  actualText: "Réel"
+  expectedText: "Attendu"
+  startText: "Démarrer"
+  completedText: "Terminé"
+  showStepsText: "Afficher les étapes"
+  hideStepsText: "Masquer les étapes"
+  errorText: "Impossible de charger le parcours client."
+  unsupportedText: "Les parcours ne sont pas pris en charge pour votre version Infor CRM SLX."
+>
+
+<mfaQRCodeDisplay ""
+  titleText: "Authentification de la configuration"
+  instructionsText: "Scannez ce QR code à l'aide de votre application d'authentification :"
+  qrCodeAltText: "QR code de configuration de la MFA"
+  showManualEntryText: "Afficher le code de saisie manuelle"
+  hideManualEntryText: "Masquer le code de saisie manuelle"
+  manualEntryInstructionsText: "Si vous ne parvenez pas à scanner le QR code, saisissez ce code manuellement dans votre application d’authentification :"
+  copySecretText: "Copier"
+  copiedText: "Copié"
+>
+<mfaDeviceSetup ""
+  titleText: "Configurer l'authentification multifacteur"
+  introText: "L'authentification multifacteur (MFA) renforce la sécurité de votre compte."
+  chooseMethodText: "Choisissez votre méthode d'authentification :"
+  deviceTypeAuthAppText: "Application d'authentification"
+  deviceTypeAuthAppDescText: "Utilisez une application comme Google Authenticator ou Microsoft Authenticator"
+  deviceTypeEmailText: "E-mail"
+  deviceTypeEmailDescText: "Recevoir les codes de vérification par e-mail"
+  deviceNameText: "Nom du périphérique"
+  deviceNamePlaceholderText: "par exemple, mon iPhone"
+  continueText: "Continuer"
+  cancelText: "Annuler"
+  proceedToVerificationText: "Passer à la vérification"
+  recommendedText: "(Recommandée)"
+>
+
+<mfaDeviceList ""
+  titleText: "Choisir une méthode d'authentification"
+  selectDeviceText: "Sélectionnez un périphérique pour vérifier votre identité :"
+  deviceTypeAuthAppText: "Application d'authentification"
+  deviceTypeEmailText: "E-mail"
+  defaultBadgeText: "Par défaut"
+  cancelText: "Annuler"
+  noDevicesText: "Aucun périphérique configuré"
+  noDevicesMessageText: "Vous devez d'abord configurer un périphérique d'authentification."
+  setupDeviceText: "Périphérique de configuration"
+>
+
+<mfaVerification ""
+  titleText: "Vérifier votre identité"
+  authAppInstructionsText: "Saisissez le code TOTP sur votre périphérique pour finaliser l'authentification multifacteur."
+  emailInstructionsText: "Vérifiez votre messagerie pour obtenir le code de vérification."
+  deviceLabelText: "Nom :"
+  codeInputPlaceholderText: "Code TOTP"
+  verifyButtonText: "Vérifier"
+  sendEmailButtonText: "Envoyer un code par e-mail"
+  resendEmailButtonText: "Renvoyer le code"
+  cancelText: "Annuler"
+  emailSentText: "Code de vérification envoyé à votre adresse e-mail"
+  emailSentConfirmationText: "Un code de vérification a été envoyé à votre adresse e-mail."
+  waitingForCodeText: "En attente du code..."
+  rateLimitMessageText: "Veuillez patienter ${0} secondes avant de demander un autre e-mail."
+  rateLimitCountdownText: "Patientez (${0})"
+  codeFormatErrorText: "Le code doit comporter 6 chiffres ou plus."
+  verifyingText: "Vérification en cours..."
+>
+
+<mfaErrors ""
+  invalidCodeText: "Code non valide ou expiré. Réessayez."
+  invalidCodeTitleText: "Code non valide"
+  invalidDeviceText: "Périphérique introuvable. Sélectionnez un autre périphérique."
+  invalidDeviceTitleText: "Périphérique non valide"
+  rateLimitExceededText: "Veuillez patienter 30 secondes avant de demander un autre e-mail."
+  rateLimitExceededTitleText: "Trop de demandes"
+  smtpErrorText: "Echec d'envoi de l'e-mail. Essayez une autre méthode d'authentification."
+  smtpErrorTitleText: "Echec d'envoi de l'e-mail"
+  setupNotAllowedText: "Vous avez déjà configuré des périphériques. Veuillez suivre la procédure de vérification."
+  setupNotAllowedTitleText: "Configuration non autorisée"
+  invalidDeviceTypeText: "Type de périphérique sélectionné non valide. Réessayez."
+  invalidDeviceTypeTitleText: "Type de périphérique non valide"
+  emailMfaDisabledText: "L'authentification par e-mail n'est pas disponible."
+  emailMfaDisabledTitleText: "MFA par e-mail désactivée"
+  networkErrorText: "Erreur réseau. Vérifiez votre connexion et réessayez."
+  networkErrorTitleText: "Erreur réseau"
+  sessionExpiredText: "Votre session a expiré. Réessayez."
+  sessionExpiredTitleText: "Session expirée"
+  mfaRequiredText: "L'authentification multifacteur est requise pour continuer."
+  mfaRequiredTitleText: "MFA obligatoire"
+  repeatedMfaErrorText: "Impossible de terminer l'authentification. Connectez-vous à nouveau."
+  repeatedMfaErrorTitleText: "Echec de l'authentification"
+  unexpectedErrorText: "Une erreur inattendue s'est produite. Réessayez."
+  unexpectedErrorTitleText: "Erreur"
+  tooManyTimeoutsText: "Trop de sessions expirées. Connectez-vous à nouveau."
+  tooManyTimeoutsTitleText: "Session expirée"
+>
+
+<mfaCommon ""
+  mfaText: "Authentification multifacteur"
+  securityText: "Sécurité"
+  authenticationText: "Authentification"
+  verificationText: "Vérification"
+  setupText: "Configuration"
+  deviceText: "Périphérique"
+  devicesText: "Périphériques"
+  codeText: "Code"
+  continueText: "Continuer"
+  cancelText: "Annuler"
+  backText: "Précédent"
+  nextText: "Suivant"
+  doneText: "Terminé"
+  retryText: "Réessayer"
+  closeText: "Fermer"
+  okText: "OK"
+>
+
+<mfaInstructions ""
+  setupIntroText: "L'authentification multifacteur (MFA) renforce la sécurité de votre compte en imposant une deuxième forme de vérification en plus de votre mot de passe."
+  authAppSetupStepsText: "Pour configurer une application d'authentification :"
+  authAppStep1Text: "1. Téléchargez une application d'authentification si vous n'en avez pas."
+  authAppStep2Text: "2. Scannez le QR code à l'aide de votre application."
+  authAppStep3Text: "3. Saisir le code de vérification à 6 chiffres dans votre application."
+  emailSetupStepsText: "Pour configurer l'authentification par e-mail :"
+  emailStep1Text: "1. Saisissez un nom pour ce périphérique."
+  emailStep2Text: "2. Cliquez sur Continuer pour passer à l'étape de vérification."
+  emailStep3Text: "3. Demandez un code par e-mail et saisissez-le aux fins de vérification."
+  verificationAuthAppText: "Ouvrez votre application d'authentification et recherchez le code à 6 chiffres associé au compte concerné. Le code est actualisé toutes les 30 secondes."
+  verificationEmailText: "Cliquez sur 'Envoyer un code par e-mail' pour recevoir un code de vérification à l'adresse e-mail que vous avez enregistrée. Saisissez ensuite le code à 6 chiffres reçu."
+  qrCodeScanText: "Scannez ce QR code au moyen de votre application d'authentification pour ajouter ce compte."
+  manualEntryText: "Si vous ne parvenez pas à scanner le QR code, vous pouvez saisir manuellement la clé secrète ci-dessous dans votre application d'authentification."
+  deviceSelectionText: "Choisissez le périphérique que vous souhaitez utiliser pour la vérification. Votre périphérique par défaut est signalé par un badge."
+>
+
+<mfaMessages ""
+  verificationSuccessText: "Vérification réussie"
+  verificationSuccessMessageText: "Votre vérification a été réalisée avec succès."
+  setupCompleteText: "Configuration terminée"
+  setupCompleteMessageText: "Votre périphérique d'authentification a été configuré avec succès."
+  deviceSetupInProgressText: "Configuration du périphérique..."
+  verificationInProgressText: "Vérification du code..."
+  loadingDevicesText: "Chargement des périphériques..."
+  sendingEmailText: "Envoi de l'e-mail..."
+  processingText: "Traitement..."
+>
+
+<mfaValidation ""
+  deviceNameRequiredText: "Nom de périphérique obligatoire"
+  deviceTypeRequiredText: "Sélectionnez un type de périphérique"
+  codeRequiredText: "Code de vérification obligatoire"
+  codeFormatText: "Le code doit comporter exactement 6 chiffres."
+  codeNumericOnlyText: "Le code ne doit contenir que des chiffres."
+>
+
+<mfaDeviceTypes ""
+  authAppText: "Application d'authentification"
+  authAppDescriptionText: "Utilisez une application mobile pour générer des codes à durée limitée"
+  emailText: "E-mail"
+  emailDescriptionText: "Recevoir les codes de vérification par e-mail"
+  unknownText: "Inconnu"
+>
+
+<mfaAccessibility ""
+  qrCodeAriaLabelText: "QR code de configuration de l'authentification multifacteur"
+  codeInputAriaLabelText: "Saisir le code de vérification à 6 chiffres"
+  deviceListAriaLabelText: "Liste des périphériques d'authentification disponibles"
+  deviceItemAriaLabelText: "${deviceName}, ${deviceType}${isDefault}"
+  defaultDeviceAriaText: ", default device"
+  sendEmailAriaLabelText: "Envoyer un code de vérification par e-mail"
+  verifyButtonAriaLabelText: "Vérifier le code saisi"
+  cancelButtonAriaLabelText: "Annuler l'authentification"
 >

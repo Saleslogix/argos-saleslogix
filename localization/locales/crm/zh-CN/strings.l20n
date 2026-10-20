@@ -18,7 +18,7 @@
 >
 
 <recurrencesField ""
-  titleText: "定期"
+  titleText: "重复"
   emptyText: ""
 >
 
@@ -56,6 +56,10 @@
   moreDetailsText: "更多明细"
   calledText: "已致电 ${0}"
   entityText: "客户"
+  addTicketText: "添加工单"
+  customerJourney360Text: "旅程 360"
+  relatedWorkflowInstancesText: "工作流实例"
+  relatedWorkflowInstancesTitleText: "客户工作流实例"
 >
 
 <accountEdit ""
@@ -117,6 +121,10 @@
   followUpText: "跟进"
   followUpTitleText: "跟进类型"
   leaderText: "负责人"
+  isLeadText: "针对销售线索"
+  yesText: "是"
+  noText: "否"
+  phoneText: "电话"
   longNotesText: "备注"
   longNotesTitleText: "备注"
   otherInfoText: "其他信息"
@@ -129,11 +137,14 @@
   startingText: "开始日期"
   timelessText: "无时间限制"
   noneText: "无"
+  fiveMinutesText: "5 分钟"
+  tenMinutesText: "10 分钟"
   quarterHourText: "15 分钟"
   halfHourText: "30 分钟"
   hourText: "1 小时"
   hourAndHalfText: "1.5 小时"
   twoHoursText: "2 小时"
+  fourHoursText: "4 小时"
   nonePropText: "无"
   phoneCallText: "电话"
   meetingText: "会议"
@@ -171,6 +182,8 @@
   confirmEditRecurrenceText: "是否要编辑所有出现的情况? 点击“取消”以编辑单个出现的情况。"
   relatedAttachmentText: "附件"
   relatedAttachmentTitleText: "活动附件"
+  relatedAttendeeText: "参加者"
+  relatedAttendeeTitleText: "活动参加者"
   relatedItemsText: "相关项"
   phoneText: "电话"
   moreDetailsText: "更多明细"
@@ -204,8 +217,8 @@
   rolloverText: "自动滚动"
   startingText: "开始时间"
   repeatsText: "重复"
-  recurringText: "定期"
-  recurringTitleText: "定期"
+  recurringText: "重复"
+  recurringTitleText: "重复"
   timelessText: "无时间限制"
   titleText: "活动"
   typeText: "类型"
@@ -221,19 +234,96 @@
   phoneText: "电话"
   noneText: "无"
   fiveMinText: "5 分钟"
+  tenMinutesText: "10 分钟"
   quarterHourText: "15 分钟"
   halfHourText: "30 分钟"
   hourText: "1 小时"
   hourAndHalfText: "1.5 小时"
   twoHoursText: "2 小时"
+  fourHoursText: "4 小时"
   dayText: "1 天"
   updateUserActErrorText: "更新用户活动时出现错误。"
+>
+
+<activityAttendeeList ""
+  titleText: "活动参加者"
+  callPhoneActionText: "打电话"
+  deleteText: "删除"
+  confirmDeleteText: "确定要移除此参加者吗?"
+>
+
+<activityAssociationList ""
+  titleText: "活动关联"
+  primaryText: "主要?"
+  deleteText: "删除"
+  confirmDeleteText: "确定要移除此关联吗?"
+>
+
+<historyAssociationList ""
+  titleText: "历史关联"
+  primaryText: "主要?"
+>
+
+<historyAttendeeList ""
+  titleText: "历史参加者"
+  callPhoneActionText: "打电话"
+>
+
+<activityAttendeeDetail ""
+  titleText: "活动参加者"
+  entityText: "活动参加者"
+  nameText: "姓名"
+  accountText: "客户"
+  typeText: "类型"
+  primaryText: "主要"
+  roleText: "角色"
+  phoneText: "电话"
+  emailText: "电子邮件"
+  timeZoneText: "时区"
+>
+
+<historyAttendeeDetail ""
+  titleText: "历史参加者"
+  entityText: "历史参加者"
+  nameText: "姓名"
+  accountText: "客户"
+  typeText: "类型"
+  primaryText: "主要"
+  roleText: "角色"
+  phoneText: "电话"
+  emailText: "电子邮件"
+  timeZoneText: "时区"
+>
+
+<activityAttendeeEdit ""
+  titleText: "活动参加者"
+  nameText: "姓名"
+  accountText: "客户"
+  typeText: "类型"
+  primaryText: "主要"
+  roleText: "角色"
+  phoneText: "电话"
+  emailText: "电子邮件"
+  timeZoneText: "时区"
+  attendeeText: "参加者"
+>
+
+<activityAttendeeTypesList ""
+  titleText: "添加参加者"
+  contactText: "联系人"
+  leadText: "销售线索"
+  cancelText: "取消"
+  addText: "添加"
 >
 
 <activityList ""
   titleText: "活动"
   allDayText: "无时间限制"
   completeActivityText: "完成"
+  completeRecurringPrompt: "完成此次出现的情况或整个系列?"
+  completeOccurrenceText: "完成出现的情况"
+  completeSeriesText: "完成序列"
+  cancelText: "取消"
   callText: "呼叫"
   calledText: "已致电 ${0}"
   addAttachmentActionText: "添加附件"
@@ -241,7 +331,8 @@
   alarmText: "提醒"
   touchedText: "已接触"
   importantText: "重要"
-  recurringText: "定期"
+  recurringText: "重复"
+  addUnscheduledText: "新建未安排"
 >
 
 <activityMyList ""
@@ -286,18 +377,18 @@
   thursday: "星期四"
   friday: "星期五"
   saturday: "星期六"
-  january: "一月"
-  february: "二月"
-  march: "三月"
-  april: "四月"
-  may: "五月"
-  june: "六月"
-  july: "七月"
-  august: "八月"
-  september: "九月"
-  october: "十月"
-  november: "十一月"
-  december: "十二月"
+  january: "1 月"
+  february: "2 月"
+  march: "3 月"
+  april: "4 月"
+  may: "5 月"
+  june: "6 月"
+  july: "7 月"
+  august: "8 月"
+  september: "9 月"
+  october: "10 月"
+  november: "11 月"
+  december: "12 月"
   days: "天"
   weeks: "周"
   months: "月"
@@ -365,6 +456,7 @@
   attachmentNotSupportedText: "不支持查看此附件类型。"
   downloadingText: "正在下载附件..."
   notSupportedText: "您的设备不支持查看此附件。"
+  openInNewTabText: "在新选项卡中打开"
 >
 
 <calendarView ""
@@ -374,12 +466,12 @@
   eventHeaderText: "事件"
   countMoreText: "查看更多"
   toggleCollapseText: "切换折叠"
-  withFromText: "参与者: 客户 ${accountName} 的联系人 ${contactName}"
-  withText: "参与者: ${object}"
-  unspecifiedText: "未指定"
+  withText: "参加者: ${object}"
+  unspecifiedText: "无"
   forText: "针对 ${reason}"
   dayText: "日"
   weekText: "周"
+  addUnscheduledText: "新建未安排"
 >
 
 <calendarDayView ""
@@ -468,6 +560,8 @@
   viewAddressText: "查看地址"
   moreDetailsText: "更多明细"
   entityText: "联系人"
+  relatedWorkflowInstancesText: "工作流实例"
+  relatedWorkflowInstancesTitleText: "联系人工作流实例"
 >
 
 <contactEdit ""
@@ -521,8 +615,9 @@
   entityText: "错误日志"
   moreDetailsText: "更多明细"
   errorText: "错误"
-  emailSubjectText: "在 Infor CRM Mobile Client 中收到错误"
+  emailSubjectText: "在“Infor CRM SLX 移动客户端”中收到错误"
   copiedSuccessText: "已复制到剪贴板"
+  emailText: "电子邮件"
 >
 
 <errorLogList ""
@@ -583,6 +678,7 @@
   ticketNumberText: "工单"
   moreDetailsText: "更多明细"
   relatedItemsText: "相关项"
+  relatedAttendeeText: "参加者"
   relatedAttachmentText: "附件"
   relatedAttachmentTitleText: "历史附件"
   modifiedText: "修改时间"
@@ -644,7 +740,7 @@
 <historyListOffline ""
   titleText: "离线备注"
   widgetTitle: "离线备注"
-  saveToCRMText: "保存到 Infor CRM"
+  saveToCRMText: "保存到 Infor CRM SLX"
   deleteNoteText: "删除"
 >
 
@@ -690,6 +786,58 @@
   calledText: "已致电 ${0}"
   emailedText: "已通过电子邮件联系 ${0}"
   entityText: "销售线索"
+  relatedWorkflowInstancesText: "工作流实例"
+  relatedWorkflowInstancesTitleText: "销售线索工作流实例"
+  ocrScanText: "扫描卡"
+  ocrUnavailableText: "该平台上不能使用卡扫描功能。"
+  ocrOpenFailedText: "卡扫描器打不开。请重试。"
+>
+
+<ocrCapture ""
+  titleText: "扫描卡"
+  instructionsText: "拍摄一张照片或选择一张卡片的图片进行扫描。"
+  browseText: "添加图像"
+  chooserTitleText: "添加图像"
+  chooserPromptText: "使用相机拍摄一张照片，或选择一张现有图片。"
+  takePhotoText: "拍照"
+  chooseFileText: "选择文件"
+  capturePhotoText: "捕获"
+  cameraErrorText: "无法访问相机。检查权限或选择一个文件。"
+  cancelText: "取消"
+  submitText: "处理"
+  progressText: "正在识别文本..."
+  previewAltText: "所选图像预览"
+  unsupportedFormatText: "不受支持的图像格式。支持的格式是 PNG、JPEG、TIFF 和 BMP。"
+  oversizeText: "所选图片太大。图片大小必须小于或等于 10 MB。"
+  emptyImageText: "图片为空，或不能捕获。请选择另一张图片。"
+  invalidImageText: "扫描前需要一张有效图片。"
+  timeoutText: "文本识别超时。请重试。"
+  recognitionErrorText: "文本识别失败。请重试。"
+  unavailableText: "该平台上不能使用文本识别。"
+  noTextText: "未识别出任何文本。请捕获或上传另一张图片。"
+>
+
+<ocrMapping ""
+  titleText: "映射卡文本"
+  linesTitleText: "识别到的文本"
+  fieldsTitleText: "字段"
+  confidenceText: "置信度"
+  assignText: "分配"
+  clearText: "清除"
+  splitText: "拆分"
+  lineInputLabelText: "识别到的文本行"
+  splitHintText: "将光标置于要拆分该行的位置，然后选择“拆分”(或按 Enter)。"
+  undoText: "撤销"
+  confirmText: "确认"
+  recaptureText: "捕获另一张图片"
+  noTextText: "未识别出任何文本。请捕获或上传另一张图片。"
+  noLineSelectedText: "先选择一个可识别行，然后将它分配到一个字段。"
+  maxLengthText: "该字段的文本过长，因此未分配。"
+  nothingToUndoText: "没有要撤销的映射操作。"
+  undoFailedText: "无法完成撤销。"
+  truncatedText: "一个或多个值已被截断，以适应字段长度。"
+  configErrorText: "卡映射屏幕缺少需要的配置: "
+  openFailedText: "打不开编辑屏幕。保留了您的映射值。"
 >
 
 <leadEdit ""
@@ -779,6 +927,8 @@
   multiCurrencyDateText: "汇率日期"
   multiCurrencyLockedText: "锁定汇率"
   entityText: "销售机会"
+  relatedWorkflowInstancesText: "工作流实例"
+  relatedWorkflowInstancesTitleText: "销售机会工作流实例"
 >
 
 <opportunityEdit ""
@@ -878,6 +1028,7 @@
   activitiesText: "活动"
   notesText: "备注"
   scheduleText: "日程安排"
+  cancelText: "取消"
 >
 
 <opportunityProductDetail ""
@@ -969,6 +1120,8 @@
   relatedTicketActivitiesText: "工单活动"
   loadingText: "正在加载"
   entityText: "工单"
+  relatedWorkflowInstancesText: "工作流实例"
+  relatedWorkflowInstancesTitleText: "工单工作流实例"
 >
 
 <ticketEdit ""
@@ -1099,7 +1252,7 @@
 >
 
 <groupListMixin ""
-  noDefaultGroupText: "未设置默认组。请单击此处以配置组。"
+  noDefaultGroupText: "未设置默认组。点击此处以配置组。"
   currentGroupNotFoundText: "找不到当前组。"
   groupTemplateSummaryText: "摘要"
   groupTemplateDetailText: "明细"
@@ -1154,6 +1307,18 @@
   titleText: "客户"
 >
 
+<areaCategoryIssue_AreaLookup ""
+  titleText: "所属范围"
+>
+
+<areaCategoryIssue_CategoryLookup ""
+  titleText: "类别"
+>
+
+<areaCategoryIssue_IssueLookup ""
+  titleText: "问题"
+>
+
 <configure ""
   titleText: "配置"
 >
@@ -1166,7 +1331,7 @@
   titleText: "帮助"
   errorText: "错误"
   errorMessageText: "无法加载帮助文档。"
-  sectionTitleText: "Infor CRM 帮助"
+  sectionTitleText: "Infor CRM SLX 帮助"
 >
 
 <home ""
@@ -1191,19 +1356,21 @@
   onlineText: "联机"
   offlineText: "离线"
   connectionText: "连接: ${connectionStatus}"
+  aboutText: "关于"
+  currentUserText: "当前用户:"
 >
 
 <login ""
   logOnText: "登录"
   passText: "密码"
-  urlText: "SData 端点"
   rememberText: "记住我"
   titleText: "登录"
   userText: "用户 ID"
+  passwordExpiredText: "密码已过期。请使用 Web 客户端更改您的密码。"
   invalidUserText: "用户名或密码无效。"
   missingUserText: "找不到用户记录。"
   requestAbortedText: "请求已中止。"
-  logoText: "Infor CRM"
+  logoText: "Infor CRM SLX"
   logOnError: "服务器不可用，或者您为端点的连接输入了错误信息。尝试重新输入端点信息，或联系您的系统管理员。"
 >
 
@@ -1237,12 +1404,26 @@
   credentialsClearedText: "已成功清空保存的凭据。"
   titleText: "设置"
   offlineOptionsText: "离线选项"
+  speedSearchOptionsText: "SpeedSearch 选项"
   use24HourClockText: "正在使用 24 小时制"
   use12HourClockText: "正在使用 12 小时制"
   confirm24HourClockMessage: "将时钟改成 24 小时制需要重启应用程序。是否继续?"
   confirm12HourClockMessage: "将时钟改成 12 小时制需要重启应用程序。是否继续?"
   confirmClearLocalStorageMessage: "清除本地存储需要重启应用程序。是否确定?"
   languageSettingText: "语言设置"
+>
+
+<speedSearchOptions ""
+  titleText: "SpeedSearch 选项"
+  searchMethodText: "搜索方法"
+  searchTypeAndText: "匹配所有字(AND)"
+  searchTypeOrText: "匹配任意字(OR)"
+  searchTypeExactPhraseText: "匹配精确短语"
+  searchTypeBooleanText: "布尔值(AND、OR 和 NOT)"
+  searchTypeNaturalText: "自然语言"
+  rootText: "根"
+  thesaurusText: "同义词库"
+  soundsLikeText: "发音相似"
 >
 
 <speedSearchList ""
@@ -1280,6 +1461,8 @@
   pleaseWaitText: "请稍候。"
   offlineText: "您的互联网连接不再有效。"
   onlineText: "您的连接当前有效。"
+  fileCacheText: "应用程序现已就绪，可以离线使用"
+  fileCacheTitle: "离线缓存"
   connectionToastTitleText: "连接状态"
   offlineOptionsText: "离线选项"
   offlineInitDataText: "正在初始化离线数据"
@@ -1299,6 +1482,12 @@
   integrationsText: "集成"
   picklistsText: "选择列表"
   retrievingPicklistsText: "正在检索选择列表"
+>
+
+<activityAssociationModule ""
+  relatedAssociationText: "关联"
+  relatedAssociationTitleText: "活动关联"
+  relatedHistoryAssociationTitleText: "历史关联"
 >
 
 <defaultMetrics ""
@@ -1336,7 +1525,7 @@
   weeklyText: "每周"
   monthlyText: "每月"
   yearlyText: "每年"
-  daySeparator: "${0}， "
+  daySeparator: "${0}, "
   sunday: "星期日"
   monday: "星期一"
   tuesday: "星期二"
@@ -1352,25 +1541,25 @@
   last: "最后一个 ${0}"
   singleActivitySummary: "该活动只发生一次"
   dailySummary: "每天，时间为 ${1}，自 ${2} 到 ${3}"
-  dailyEverySummary: "每隔 ${0} 天，时间为 ${1}，自 ${2} 到 ${3}"
+  dailyEverySummary: "每 ${0} 天，时间为 ${1}，自 ${2} 到 ${3}"
   dailyAfterCompletionSummary: "完成后每日"
-  dailyEveryAfterCompletionSummary: "完成后每隔 ${0} 天"
+  dailyEveryAfterCompletionSummary: "完成后每 ${0} 天"
   weeklySummary: "每周的${4}，时间为 ${1}，自 ${2} 到 ${3}"
-  weeklyEverySummary: "每隔 ${0} 周的${4}，时间为 ${1}，自 ${2} 到 ${3}"
+  weeklyEverySummary: "每 ${0} 周的${4}，时间为 ${1}，自 ${2} 到 ${3}"
   weeklyAfterCompletionSummary: "完成后每周"
-  weeklyEveryAfterCompletionSummary: "完成后每隔 ${0} 周"
+  weeklyEveryAfterCompletionSummary: "完成后每 ${0} 周"
   monthlyOrdSummary: "每月，该月${6}，时间为 ${1}，自 ${2} 到 ${3}"
-  monthlyEveryOrdSummary: "每隔 ${0} 月，该月${6}，时间为 ${1}，自 ${2} 到 ${3}"
+  monthlyEveryOrdSummary: "每 ${0} 个月，该月${6}，时间为 ${1}，自 ${2} 到 ${3}"
   monthlySummary: "每月的该月第 ${7} 天，时间为 ${1}，自 ${2} 到 ${3}"
-  monthlyEverySummary: "每隔 ${0} 月的该月第 ${7} 天，时间为 ${1}，自 ${2} 到 ${3}"
+  monthlyEverySummary: "每 ${0} 个月的该月第 ${7} 天，时间为 ${1}，自 ${2} 到 ${3}"
   monthlyAfterCompletionSummary: "完成后每月"
-  monthlyEveryAfterCompletionSummary: "完成后每隔 ${0} 月"
+  monthlyEveryAfterCompletionSummary: "完成后每 ${0} 个月"
   yearlySummary: "每年${5}，该月第 ${7} 天，时间为 ${1}，自 ${2} 到 ${3}"
-  yearlyEverySummary: "每隔 ${0} 年，月份 ${5}，该月第 ${7} 天，时间为 ${1}，自 ${2} 到 ${3}"
+  yearlyEverySummary: "每 ${0} 年，月份 ${5}，该月第 ${7} 天，时间为 ${1}，自 ${2} 到 ${3}"
   yearlyOrdSummary: "每年${5}${6}，时间为 ${1}，自 ${2} 到 ${3}"
-  yearlyEveryOrdSummary: "每隔 ${0} 年，${5}的${6}，时间为 ${1}，自 ${2} 到 ${3}"
+  yearlyEveryOrdSummary: "每 ${0} 年，${5}的${6}，时间为 ${1}，自 ${2} 到 ${3}"
   yearlyAfterCompletionSummary: "完成后的每年"
-  yearlyEveryAfterCompletionSummary: "完成后的每隔 ${0} 年"
+  yearlyEveryAfterCompletionSummary: "完成后的每 ${0} 年"
 >
 
 <speedSearchWidget ""
@@ -1401,6 +1590,26 @@
 <leadModel ""
   entityDisplayName: "销售线索"
   entityDisplayNamePlural : "销售线索"
+>
+
+<activityAttendeeModel ""
+  entityDisplayName: "活动参加者"
+  entityDisplayNamePlural : "活动参加者"
+>
+
+<activityAssociationModel ""
+  entityDisplayName: "活动关联"
+  entityDisplayNamePlural : "活动关联"
+>
+
+<historyAssociationModel ""
+  entityDisplayName: "历史关联"
+  entityDisplayNamePlural : "历史关联"
+>
+
+<historyAttendeeModel ""
+  entityDisplayName: "历史参加者"
+  entityDisplayNamePlural : "历史参加者"
 >
 
 <activityModel ""
@@ -1437,6 +1646,11 @@
 <historyModel ""
   entityDisplayName: "历史"
   entityDisplayNamePlural : "历史"
+>
+
+<historyAssociationModel ""
+  entityDisplayName: "历史关联"
+  entityDisplayNamePlural : "历史关联"
 >
 
 <offlineDetail ""
@@ -1536,7 +1750,7 @@
 
 <activityListHashTags ""
   alarmText: "#提醒"
-  recurringText: "#定期"
+  recurringText: "#重复"
   timelessText: "#无时间限制"
   todayText: "#今天"
   thisWeekText: "#本周"
@@ -1548,7 +1762,7 @@
   hashTagUnconfirmedText: "#未确认状态"
   hashTagAcceptedText: "#已接受状态"
   hashTagDeclinedText: "#已拒绝状态"
-  hashTagRecurringText: "#定期"
+  hashTagRecurringText: "#重复"
   hashTagTimelessText: "#无时间限制"
   hashTagTodayText: "#今天"
   hashTagThisWeekText: "#本周"
@@ -1558,6 +1772,43 @@
 <attachmentListHashTags ""
   hashTagUrlText: "#URL"
   hashTagBinaryText: "#二进制"
+>
+
+<accountListHashTags ""
+  activeHash: "#活动"
+  inactiveHash: "#不活动"
+  myAccountsHash: "#我的客户"
+  newThisWeekHash: "#本周新上架"
+>
+
+<contactListHashTags ""
+  myContactsHash: "#我的联系人"
+  withEmailHash: "#有电子邮件"
+  withPhoneHash: "#有电话"
+  newThisWeekHash: "#本周新上架"
+>
+
+<opportunityListHashTags ""
+  openHash: "#未结"
+  closedWonHash: "#已结-已赢得"
+  closedLostHash: "#已结-已丢失"
+  myOpportunitiesHash: "#我的销售机会"
+  closingSoonHash: "#即将关闭"
+>
+
+<leadListHashTags ""
+  myLeadsHash: "#我的销售线索"
+  newThisWeekHash: "#本周新上架"
+  withEmailHash: "#有电子邮件"
+  withPhoneHash: "#有电话"
+>
+
+<ticketListHashTags ""
+  openHash: "#未结"
+  urgentHash: "#紧急"
+  myTicketsHash: "#我的工单"
+  newThisWeekHash: "#本周新上架"
+  neededSoonHash: "#急需"
 >
 
 <historyListHashTags ""
@@ -1581,4 +1832,176 @@
 
 <chartMixin ""
   loadingText: "正在加载"
+>
+
+<customerJourney360Widget ""
+  actualText: "实际"
+  expectedText: "预期"
+  startText: "启动/开始"
+  completedText: "已完成"
+  showStepsText: "显示步骤"
+  hideStepsText: "隐藏步骤"
+  errorText: "无法加载客户旅程。"
+  unsupportedText: "您的 Infor CRM SLX 版本不支持旅程。"
+>
+
+<mfaQRCodeDisplay ""
+  titleText: "设置身份验证器"
+  instructionsText: "用您的身份验证应用程序扫描该二维码:"
+  qrCodeAltText: "MFA 设置的二维码"
+  showManualEntryText: "显示手动录入代码"
+  hideManualEntryText: "隐藏手动录入代码"
+  manualEntryInstructionsText: "如果您无法扫描二维码，请在身份验证应用中手动输入以下代码:"
+  copySecretText: "复制"
+  copiedText: "已复制!"
+>
+<mfaDeviceSetup ""
+  titleText: "设置多因素身份验证"
+  introText: "MFA 为您的账户增添了一层额外的安全保障。"
+  chooseMethodText: "选择您的身份验证方法:"
+  deviceTypeAuthAppText: "身份验证应用程序"
+  deviceTypeAuthAppDescText: "使用像 Google Authenticator 或 Microsoft Authenticator 之类的应用"
+  deviceTypeEmailText: "电子邮件"
+  deviceTypeEmailDescText: "通过电子邮件收到验证码"
+  deviceNameText: "设备名称"
+  deviceNamePlaceholderText: "例如，我的 iPhone"
+  continueText: "继续"
+  cancelText: "取消"
+  proceedToVerificationText: "继续验证"
+  recommendedText: "(推荐)"
+>
+
+<mfaDeviceList ""
+  titleText: "选择身份验证方法"
+  selectDeviceText: "选择设备验证您的身份:"
+  deviceTypeAuthAppText: "身份验证应用"
+  deviceTypeEmailText: "电子邮件"
+  defaultBadgeText: "默认"
+  cancelText: "取消"
+  noDevicesText: "未配置设备"
+  noDevicesMessageText: "您需要先设置一个身份验证设备。"
+  setupDeviceText: "设置设备"
+>
+
+<mfaVerification ""
+  titleText: "验证您的身份"
+  authAppInstructionsText: "从该设备输入 TOTP 代码，以完成多因素身份验证"
+  emailInstructionsText: "查看电子邮件中的验证码。"
+  deviceLabelText: "名称:"
+  codeInputPlaceholderText: "TOTP 代码"
+  verifyButtonText: "验证"
+  sendEmailButtonText: "发送电子邮件代码"
+  resendEmailButtonText: "重新发送代码"
+  cancelText: "取消"
+  emailSentText: "发送到您的电子邮件的验证码"
+  emailSentConfirmationText: "验证码已发送到您的电子邮件地址。"
+  waitingForCodeText: "正在等待代码..."
+  rateLimitMessageText: "请在请求另一封电子邮件前等候 ${0} 秒。"
+  rateLimitCountdownText: "等待 ${0}"
+  codeFormatErrorText: "代码必须大于或等于 6 个数字"
+  verifyingText: "正在验证..."
+>
+
+<mfaErrors ""
+  invalidCodeText: "无效或过期代码。请重试。"
+  invalidCodeTitleText: "无效代码"
+  invalidDeviceText: "找不到设备。请选择另一个设备。"
+  invalidDeviceTitleText: "无效设备"
+  rateLimitExceededText: "请在请求另一封电子邮件前等候 30 秒。"
+  rateLimitExceededTitleText: "太多次请求"
+  smtpErrorText: "无法发送电子邮件。请尝试另一个验证方法。"
+  smtpErrorTitleText: "电子邮件发送失败"
+  setupNotAllowedText: "您已经配置了设备。请使用验证流程。"
+  setupNotAllowedTitleText: "不允许设置"
+  invalidDeviceTypeText: "选择的设备类型无效。请重试。"
+  invalidDeviceTypeTitleText: "设备类型无效"
+  emailMfaDisabledText: "电子邮件授权不可用。"
+  emailMfaDisabledTitleText: "电子邮件 MFA 已禁用"
+  networkErrorText: "网络错误。请检查您的网络连接并重试。"
+  networkErrorTitleText: "网络错误"
+  sessionExpiredText: "您的会话已过期，请重试。"
+  sessionExpiredTitleText: "会话过期"
+  mfaRequiredText: "需要提供多因素身份验证，才能继续。"
+  mfaRequiredTitleText: "需要 MFA"
+  repeatedMfaErrorText: "无法完成授权。请重新登录。"
+  repeatedMfaErrorTitleText: "身份验证失败"
+  unexpectedErrorText: "出现异常错误。请重试。"
+  unexpectedErrorTitleText: "错误"
+  tooManyTimeoutsText: "太多会话超时。请重新登录。"
+  tooManyTimeoutsTitleText: "会话超时"
+>
+
+<mfaCommon ""
+  mfaText: "多因素身份验证"
+  securityText: "安全性"
+  authenticationText: "身份验证"
+  verificationText: "验证"
+  setupText: "设置"
+  deviceText: "设备"
+  devicesText: "设备"
+  codeText: "代码"
+  continueText: "继续"
+  cancelText: "取消"
+  backText: "返回"
+  nextText: "下一步 "
+  doneText: "完成"
+  retryText: "重试"
+  closeText: "关闭"
+  okText: "确定"
+>
+
+<mfaInstructions ""
+  setupIntroText: "多因素身份验证(MFA)通过密码以外的第二个验证方法，为您的账户增添了一层额外的安全保障。"
+  authAppSetupStepsText: "若要设置身份验证应用:"
+  authAppStep1Text: "1. 如果您还没有身份验证应用，请下载一个"
+  authAppStep2Text: "2. 用您的应用扫描二维码"
+  authAppStep3Text: "3. 输入您的应用中的 6 位验证码以完成验证"
+  emailSetupStepsText: "若要设置电子邮件身份验证:"
+  emailStep1Text: "1. 输入该设备的名称。"
+  emailStep2Text: "2. 单机“继续”继续验证"
+  emailStep3Text: "3. 通过电子邮件请求验证码，并输入该验证码进行验证"
+  verificationAuthAppText: "打开您的身份验证应用，查找该账户的 6 位验证码。该验证码每 30 秒刷新一次。"
+  verificationEmailText: "单击“发送电子邮件验证码”，系统将向您注册的电子邮箱发送验证码。然后输入您收到的 6 位数字验证码。"
+  qrCodeScanText: "用您的身份验证应用扫描该二维码，添加该客户。"
+  manualEntryText: "如果您无法扫描二维码，请在您的身份验证应用中手动输入下面显示的密钥:"
+  deviceSelectionText: "请选择您要用于验证的设备。默认设备旁会显示一个标记。"
+>
+
+<mfaMessages ""
+  verificationSuccessText: "验证成功"
+  verificationSuccessMessageText: "已成功验证。"
+  setupCompleteText: "设置完成"
+  setupCompleteMessageText: "已成功设置您的身份验证设备。"
+  deviceSetupInProgressText: "正在设置设备..."
+  verificationInProgressText: "正在验证代码..."
+  loadingDevicesText: "正在加载设备..."
+  sendingEmailText: "正在发送电子邮件..."
+  processingText: "正在处理..."
+>
+
+<mfaValidation ""
+  deviceNameRequiredText: "需要设备名称"
+  deviceTypeRequiredText: "请选择设备类型"
+  codeRequiredText: "需要验证码"
+  codeFormatText: "验证码必须是 6 位数字"
+  codeNumericOnlyText: "验证码必须只包含数字"
+>
+
+<mfaDeviceTypes ""
+  authAppText: "身份验证应用"
+  authAppDescriptionText: "使用移动应用生成基于时间的代码"
+  emailText: "电子邮件"
+  emailDescriptionText: "通过电子邮件收到验证码"
+  unknownText: "未知"
+>
+
+<mfaAccessibility ""
+  qrCodeAriaLabelText: "多因素身份验证设置的二维码"
+  codeInputAriaLabelText: "请输入 6 位验证码"
+  deviceListAriaLabelText: "可用身份验证设备列表"
+  deviceItemAriaLabelText: "${deviceName}, ${deviceType}${isDefault}"
+  defaultDeviceAriaText: ", default device"
+  sendEmailAriaLabelText: "通过电子邮件发送验证码"
+  verifyButtonAriaLabelText: "验证输入的代码"
+  cancelButtonAriaLabelText: "取消身份验证"
 >

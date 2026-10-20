@@ -1,5 +1,5 @@
 <proxAppModule ""
-  viewAccountsNearbyText: "Ver cuentas cercanas"
+  viewAccountsNearbyText: "Cuentas cercanas"
   addressNotGeocodedErrorText: "No se han aplicado coordenadas geográficas a la dirección. No se pueden buscar cuentas cercanas."
   accountsNearText: "Cuentas cerca de ${0}"
   helpTitleText: "Ayuda de Contour"
@@ -14,8 +14,8 @@
 	currentLocationErrorText: "No se puede obtener su ubicación actual. No se puede buscar."
 	editActionText: "Editar"
   faxAbbreviationText: "Fax: "
-	kilometerAbbrevText: "km"
-	mileAbbrevText: "mi"
+	kilometerAbbrevText: "Km"
+	mileAbbrevText: "Mi"
   phoneAbbreviationText: "Teléfono: "
 	titleText: "Cuentas cerca de mí"
 	viewContactsActionText: "Contactos"
@@ -30,6 +30,6 @@
 >
 
 <placeModel ""
-  entityDisplayName: "Ubicación"
+  entityDisplayName: "Lugar"
   entityDisplayNamePlural : "Lugares"
 >
